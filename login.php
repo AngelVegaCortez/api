@@ -23,16 +23,27 @@ $correo = $data['correo'] ?? '';
 $contrasena = $data['contrasena'] ?? '';
 
 // Buscar usuario por correo
-$sql = "SELECT id, contrasena FROM Usuario WHERE correo = :correo";
+$sql = "SELECT id, nombre, tipoUsuario, contrasena, correo FROM Usuario WHERE correo = :correo";
 $stmt = $pdo->prepare($sql);
 $stmt->execute([':correo' => $correo]);
 $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
 
-// Verificar contraseña encriptada
+// Verificar contraseña (¡Recuerda encriptarla en producción!)
 if ($usuario && $contrasena === $usuario['contrasena']) {
     $_SESSION['usuario'] = $usuario['id'];
-    echo json_encode(['success' => true, 'id' => $usuario['id']]);
+
+    // Devuelve todos los datos necesarios
+    echo json_encode([
+        'success' => true,
+        'usuario' => [
+            'id' => $usuario['id'],
+            'nombre' => $usuario['nombre'],
+            'tipoUsuario' => $usuario['tipoUsuario'],
+            'correo' => $usuario['correo']
+        ]
+    ]);
 } else {
     http_response_code(401);
     echo json_encode(['success' => false, 'mensaje' => 'Correo o contraseña incorrectos.']);
 }
+?>

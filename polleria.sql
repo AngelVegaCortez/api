@@ -10,7 +10,7 @@ CREATE TABLE Usuario (
     apellidoMaterno VARCHAR(100),
     correo VARCHAR(255) UNIQUE NOT NULL,
     contrasena VARCHAR(255) NOT NULL,
-    estatus BOOLEAN DEFAULT 0,  
+    estatus BOOLEAN DEFAULT 1,
     direccion VARCHAR(255),
     nombreUsuario VARCHAR(100) UNIQUE NOT NULL,
     tipoUsuario ENUM('Cliente', 'Administrador') NOT NULL,
@@ -87,7 +87,7 @@ VALUES
 ('Cinthya', 'Jiménez', 'García', 'cjimenezg2000@alumno.ipn.mx', 'admin123', 'ESCOM', 'zzzinthya', 'Administrador'),
 ('Omar Jesús', 'Vazquez', 'Sanchez', 'ovazquezs2000@alumno.ipn.mx', 'admin123', 'ESCOM', 'boringchange', 'Administrador'),
 ('Joshua Iván', 'Zavaleta', 'Guerrero', 'jzavaletag2000@alumno.ipn.mx', 'admin123', 'ESCOM', 'diverzg5', 'Administrador'),
-('Kitzia María', 'Araujo', 'Pérez', 'karaujop2000@lumno.ipn.mx', 'admin123', 'ESCOM', 'kira', 'Administrador'),
+('Kitzia María', 'Araujo', 'Pérez', 'karaujop2000@alumno.ipn.mx', 'admin123', 'ESCOM', 'kira', 'Administrador'),
 ('Axel Eduardo', 'Martínez', 'Granados', 'amartinezg2026@alumno.ipn.mx', 'admin123', 'ESCOM', 'zalgock', 'Administrador'),
 ('Luis Axel', 'Zarate', 'Lozano', 'lzaratel2000@alumno.ipn.mx', 'admin123', 'ESCOM', 'batcom', 'Administrador'),
 -- Clientes
