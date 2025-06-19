@@ -79,7 +79,7 @@ CREATE TABLE DetalleCompra (
     FOREIGN KEY (idCompra) REFERENCES Compra(id) ON DELETE CASCADE,
     FOREIGN KEY (idProducto) REFERENCES Producto(id) ON DELETE CASCADE
 );
-
+-- INSERT INTO Compra (fecha, confirmacion, medioPago, total, idCliente) VALUE (timestamp '2023-10-01 12:00:00', 0, 'Tarjeta de Crédito', 150.00, 1);
 
 -- Insertar usuarios administradores
 INSERT INTO Usuario (nombre, apellidoPaterno, apellidoMaterno, correo, contrasena, direccion, nombreUsuario, tipoUsuario)

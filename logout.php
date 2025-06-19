@@ -13,4 +13,8 @@ session_start();
 session_unset();
 session_destroy();
 
+setcookie("id", "", time() - 3600, "/");
+unset($_COOKIE['id']);
+
+header('Content-Type: application/json');
 echo json_encode(['cerrado' => true]);
