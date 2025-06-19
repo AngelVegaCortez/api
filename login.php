@@ -32,6 +32,8 @@ $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
 if ($usuario && $contrasena === $usuario['contrasena']) {
     $_SESSION['usuario'] = $usuario['id'];
 
+    setcookie("id", $usuario['id'], time() + (3600), "/"); // 30 días
+
     // Devuelve todos los datos necesarios
     echo json_encode([
         'success' => true,
