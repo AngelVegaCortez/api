@@ -50,6 +50,8 @@ CREATE TABLE MateriaPrima (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(255) NOT NULL,
     cantidad DECIMAL(10,2) NOT NULL,
+    cantidadMax DECIMAL(10,2) NOT NULL,
+    umbral DECIMAL(10,2) NOT NULL,
     unidadMedida VARCHAR(50),
     idAdministrador INT NULL,
     FOREIGN KEY (idAdministrador) REFERENCES Administrador(id) ON DELETE SET NULL
@@ -169,24 +171,24 @@ VALUES
 ('Cerveza Artesanal de la Casa (355 ml)', 'Perfecta para un rico pollo a la parrilla.', 50, 50.00, 0.00, 'Bebidas', 1, 2);
 
 -- Insertar materia prima
-INSERT INTO MateriaPrima (nombre, cantidad, unidadMedida, idAdministrador)
+INSERT INTO MateriaPrima (nombre, cantidad, cantidadMax, umbral, unidadMedida, idAdministrador)
 VALUES
-('Pollo vivo', 500.00, 'kg', 1),
-('Sal', 100.00, 'kg', 2),
-('Pimienta', 50.00, 'kg', 2),
-('Empanizador', 80.00, 'kg', 2),
-('Aceite vegetal', 200.00, 'litros', 1),
-('Especias para alitas', 30.00, 'kg', 1),
-('Embalaje para pollo', 1000.00, 'unidades', 2),
-('Ajo en polvo', 40.00, 'kg', 1),
-('Paprika', 25.00, 'kg', 2),
-('Comino', 20.00, 'kg', 2),
-('Tortillas de maíz', 3000.00, 'unidades', 2),
-('Arroz', 150.00, 'kg', 1),
-('Pan para torta', 500.00, 'unidades', 2),
-('Chiles secos', 35.00, 'kg', 1),
-('Chipotle adobado', 25.00, 'kg', 2),
-('Salsa BBQ', 50.00, 'litros', 1),
-('Jitomate', 80.00, 'kg', 1),
-('Cebolla', 60.00, 'kg', 1),
-('Chile habanero', 20.00, 'kg', 2);
+('Pollo vivo', 500, 1000, 100, 'unidades', 1),
+('Sal', 100.00, 200.00, 20.00, 'kg', 2),
+('Pimienta', 50.00, 100.00, 10.00, 'kg', 2),
+('Empanizador', 80.00, 150.00, 15.00, 'kg', 2),
+('Aceite vegetal', 200.00, 300.00, 30.00, 'litros', 1),
+('Especias para alitas', 30.00, 50.00, 5.00, 'kg', 1),
+('Embalaje para pollo', 1000, 2000, 200, 'unidades', 2),
+('Ajo en polvo', 40.00, 50.00, 5.00, 'kg', 1),
+('Paprika', 25.00, 50.00, 5.00, 'kg', 2),
+('Comino', 20.00, 50.00, 5.00, 'kg', 2),
+('Tortillas de maíz', 3000, 4000, 400, 'unidades', 2),
+('Arroz', 150.00, 500.00, 50.00, 'kg', 1),
+('Pan para torta', 500, 500, 50, 'unidades', 2),
+('Chiles secos', 35.00, 40.00, 4.00, 'kg', 1),
+('Chipotle adobado', 25.00, 40.00, 4.00, 'kg', 2),
+('Salsa BBQ', 50.00, 80.00, 8.00, 'litros', 1),
+('Jitomate', 80.00,  100.00, 10.00, 'kg', 1),
+('Cebolla', 60.00, 60.00, 6.00, 'kg', 1),
+('Chile habanero', 20.00, 40.00, 4.00, 'kg', 2);
