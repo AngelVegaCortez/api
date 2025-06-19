@@ -54,6 +54,7 @@ CREATE TABLE MateriaPrima (
     cantidadMax DECIMAL(10,2) NOT NULL,
     umbral DECIMAL(10,2) NOT NULL,
     unidadMedida VARCHAR(50),
+    consumoPromedioDiario DECIMAL (10,2) DEFAULT 1,
     idAdministrador INT NULL,
     FOREIGN KEY (idAdministrador) REFERENCES Administrador(id) ON DELETE SET NULL
 ) ENGINE=InnoDB;
@@ -172,24 +173,24 @@ VALUES
 ('Cerveza Artesanal de la Casa (355 ml)', 'Perfecta para un rico pollo a la parrilla.', 50, 50.00, 0.00, 'Bebidas', 1, 2);
 
 -- Insertar materia prima
-INSERT INTO MateriaPrima (nombre, precio, cantidad, cantidadMax, umbral, unidadMedida, idAdministrador)
+INSERT INTO MateriaPrima (nombre, precio, cantidad, cantidadMax, umbral, unidadMedida, consumoPromedioDiario, idAdministrador)
 VALUES
-    ('Pollo vivo', 40.00, 500, 1000, 200, 'unidades', 1),
-    ('Sal', 18.00, 30.00, 200.00, 40.00, 'kg', 2),
-    ('Pimienta', 22.00, 50.00, 100.00, 20.00, 'kg', 2),
-    ('Empanizador', 35.00, 80.00, 150.00, 30.00, 'kg', 2),
-    ('Aceite vegetal', 28.00, 200.00, 300.00, 60.00, 'litros', 1),
-    ('Especias para alitas', 260.00, 30.00, 50.00, 10.00, 'kg', 1),
-    ('Embalaje para pollo', 4.50, 1000, 2000, 400, 'unidades', 2),
-    ('Ajo en polvo', 183.00, 40.00, 50.00, 10.00, 'kg', 1),
-    ('Paprika', 80.00, 25.00, 50.00, 10.00, 'kg', 2),
-    ('Comino', 189.00, 20.00, 50.00, 10.00, 'kg', 2),
-    ('Tortillas de maíz', 13.50, 3000, 4000, 800, 'unidades', 2),
-    ('Arroz', 150.00, 500.00, 500.00, 100.00, 'kg', 1),
-    ('Pan para torta', 2.50, 500, 500, 100, 'unidades', 2),
-    ('Chiles secos', 169.00, 35.00, 40.00, 8.00, 'kg', 1),
-    ('Chipotle adobado', 65.00, 3.00, 40.00, 8.00, 'kg', 2),
-    ('Salsa BBQ', 55.00, 50.00, 80.00, 16.00, 'litros', 1),
-    ('Jitomate', 18.00, 80.00, 100.00, 20.00, 'kg', 1),
-    ('Cebolla', 14.00, 60.00, 60.00, 12.00, 'kg', 1),
-    ('Chile habanero', 120.00, 2.00, 40.00, 8.00, 'kg', 2);
+    ('Pollo vivo', 40.00, 500, 1000, 200, 'unidades', 5, 1),
+    ('Sal', 18.00, 30.00, 200.00, 40.00, 'kg', 1, 2),
+    ('Pimienta', 22.00, 50.00, 100.00, 20.00, 'kg', 0.5, 2),
+    ('Empanizador', 35.00, 80.00, 150.00, 30.00, 'kg', 0.5, 2),
+    ('Aceite vegetal', 28.00, 200.00, 300.00, 60.00, 'litros', 3, 1),
+    ('Especias para alitas', 260.00, 30.00, 50.00, 10.00, 'kg', 1.5, 1),
+    ('Embalaje para pollo', 4.50, 1000, 2000, 400, 'unidades', 4,2),
+    ('Ajo en polvo', 183.00, 40.00, 50.00, 10.00, 'kg', 3,1),
+    ('Paprika', 80.00, 25.00, 50.00, 10.00, 'kg', 1, 2),
+    ('Comino', 189.00, 20.00, 50.00, 10.00, 'kg', 1, 2),
+    ('Tortillas de maíz', 13.50, 1000, 2000, 400, 'unidades', 320, 2),
+    ('Arroz', 150.00, 500.00, 500.00, 100.00, 'kg', 5,1),
+    ('Pan para torta', 2.50, 50, 100, 20, 'unidades', 10,2),
+    ('Chiles secos', 169.00, 35.00, 40.00, 8.00, 'kg', 13,1),
+    ('Chipotle adobado', 65.00, 3.00, 40.00, 8.00, 'kg', 1,2),
+    ('Salsa BBQ', 55.00, 50.00, 80.00, 16.00, 'litros', 3,1),
+    ('Jitomate', 18.00, 80.00, 100.00, 20.00, 'kg', 10,1),
+    ('Cebolla', 14.00, 60.00, 60.00, 12.00, 'kg', 3,1),
+    ('Chile habanero', 120.00, 2.00, 40.00, 8.00, 'kg', 1,2);
