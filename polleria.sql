@@ -89,7 +89,7 @@ VALUES
 ('Joshua Iván', 'Zavaleta', 'Guerrero', 'jzavaletag2000@alumno.ipn.mx', 'admin123', 'ESCOM', 'diverzg5', 'Administrador'),
 ('Kitzia María', 'Araujo', 'Pérez', 'karaujop2000@lumno.ipn.mx', 'admin123', 'ESCOM', 'kira', 'Administrador'),
 ('Axel Eduardo', 'Martínez', 'Granados', 'amartinezg2026@alumno.ipn.mx', 'admin123', 'ESCOM', 'zalgock', 'Administrador'),
-('Luis Axel', 'Zarate', 'Lozano', 'lzaratel@alumno.ipn.mx', 'admin123', 'ESCOM', 'batcom', 'Administrador'),
+('Luis Axel', 'Zarate', 'Lozano', 'lzaratel2000@alumno.ipn.mx', 'admin123', 'ESCOM', 'batcom', 'Administrador'),
 -- Clientes
 ('Sara', 'Lagunas', 'Orduña', 'slagunaso2000@alumno.ipn.mx', 'cliente123', 'ESM', 'sarabola', 'Cliente')
 ;
