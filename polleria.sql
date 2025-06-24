@@ -16,7 +16,8 @@ CREATE TABLE Usuario (
     tipoUsuario ENUM('Cliente', 'Administrador') NOT NULL,
     fechaAlta DATETIME DEFAULT CURRENT_TIMESTAMP,
     fechaModificacion DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    fechaBaja DATETIME NULL
+    fechaBaja DATETIME NULL,
+    fotoPerfil VARCHAR(255)
 );
 
 CREATE TABLE Cliente (
@@ -93,7 +94,17 @@ VALUES
 ('Axel Eduardo', 'Martínez', 'Granados', 'amartinezg2026@alumno.ipn.mx', 'admin123', 'ESCOM', 'zalgock', 'Administrador'),
 ('Luis Axel', 'Zarate', 'Lozano', 'lzaratel2000@alumno.ipn.mx', 'admin123', 'ESCOM', 'batcom', 'Administrador'),
 -- Clientes
-('Sara', 'Lagunas', 'Orduña', 'slagunaso2000@alumno.ipn.mx', 'cliente123', 'ESM', 'sarabola', 'Cliente')
+('Sara', 'Lagunas', 'Orduña', 'slagunaso2000@alumno.ipn.mx', 'cliente123', 'ESM', 'sarabola', 'Cliente'),
+('Ana', 'Ramírez', 'Torres', 'ana@correo.com', 'cliente123', 'Calle 1', 'anaram', 'Cliente'),
+('Luis', 'Hernández', 'Pérez', 'luis@correo.com', 'cliente123', 'Calle 2', 'luisito', 'Cliente'),
+('María', 'López', 'Gómez', 'maria@correo.com', 'cliente123', 'Calle 3', 'marylg', 'Cliente'),
+('Pedro', 'Sánchez', 'Rodríguez', 'pedro@correo.com', 'cliente123', 'Calle 4', 'pedro_s', 'Cliente'),
+('Lucía', 'García', 'Martínez', 'lucia@correo.com', 'cliente123', 'Calle 5', 'lucym', 'Cliente'),
+('Jorge', 'Morales', 'Núñez', 'jorge@correo.com', 'cliente123', 'Calle 6', 'jorgem', 'Cliente'),
+('Sandra', 'Reyes', 'Díaz', 'sandra@correo.com', 'cliente123', 'Calle 7', 'sandyd', 'Cliente'),
+('Ricardo', 'Ortiz', 'Flores', 'ricardo@correo.com', 'cliente123', 'Calle 8', 'rickyf', 'Cliente'),
+('Carmen', 'Torres', 'Castillo', 'carmen@correo.com', 'cliente123', 'Calle 9', 'carment', 'Cliente'),
+('David', 'Mendoza', 'Ruiz', 'david@correo.com', 'cliente123', 'Calle 10', 'davidr', 'Cliente')
 ;
 
 -- Insertar administradores
@@ -194,3 +205,52 @@ VALUES
     ('Jitomate', 18.00, 80.00, 100.00, 20.00, 'kg', 10,1),
     ('Cebolla', 14.00, 60.00, 60.00, 12.00, 'kg', 3,1),
     ('Chile habanero', 120.00, 2.00, 40.00, 8.00, 'kg', 1,2);
+
+-- Clientes
+INSERT INTO Cliente (id, telefono, codigoActivacion, activado) VALUES (8, '5517606318', 'ACT0008', 1);
+INSERT INTO Cliente (id, telefono, codigoActivacion, activado) VALUES (9, '5571212002', 'ACT0009', 1);
+INSERT INTO Cliente (id, telefono, codigoActivacion, activado) VALUES (10, '5539827672', 'ACT0010', 0);
+INSERT INTO Cliente (id, telefono, codigoActivacion, activado) VALUES (11, '5526499788', 'ACT0011', 0);
+INSERT INTO Cliente (id, telefono, codigoActivacion, activado) VALUES (12, '5597802279', 'ACT0012', 1);
+INSERT INTO Cliente (id, telefono, codigoActivacion, activado) VALUES (13, '5514802608', 'ACT0013', 0);
+INSERT INTO Cliente (id, telefono, codigoActivacion, activado) VALUES (14, '5568661324', 'ACT0014', 0);
+INSERT INTO Cliente (id, telefono, codigoActivacion, activado) VALUES (15, '5576577432', 'ACT0015', 0);
+INSERT INTO Cliente (id, telefono, codigoActivacion, activado) VALUES (16, '5511643113', 'ACT0016', 1);
+INSERT INTO Cliente (id, telefono, codigoActivacion, activado) VALUES (17, '5579726997', 'ACT0017', 0);
+
+-- Compras
+INSERT INTO Compra (id, fecha, confirmacion, medioPago, total, idCliente) VALUES (1, '2025-06-02 00:00:00', 1, 'Efectivo', 380.76, 9);
+INSERT INTO Compra (id, fecha, confirmacion, medioPago, total, idCliente) VALUES (2, '2025-06-03 00:00:00', 1, 'Tarjeta', 345.42, 9);
+INSERT INTO Compra (id, fecha, confirmacion, medioPago, total, idCliente) VALUES (3, '2025-06-04 00:00:00', 1, 'Tarjeta', 380.52, 12);
+INSERT INTO Compra (id, fecha, confirmacion, medioPago, total, idCliente) VALUES (4, '2025-06-05 00:00:00', 1, 'Transferencia', 192.96, 16);
+INSERT INTO Compra (id, fecha, confirmacion, medioPago, total, idCliente) VALUES (5, '2025-06-06 00:00:00', 1, 'Tarjeta', 386.34, 13);
+INSERT INTO Compra (id, fecha, confirmacion, medioPago, total, idCliente) VALUES (6, '2025-06-07 00:00:00', 1, 'Transferencia', 222.54, 15);
+INSERT INTO Compra (id, fecha, confirmacion, medioPago, total, idCliente) VALUES (7, '2025-06-08 00:00:00', 1, 'Transferencia', 433.18, 8);
+INSERT INTO Compra (id, fecha, confirmacion, medioPago, total, idCliente) VALUES (8, '2025-06-02 00:00:00', 1, 'Transferencia', 302.29, 10);
+INSERT INTO Compra (id, fecha, confirmacion, medioPago, total, idCliente) VALUES (9, '2025-06-03 00:00:00', 1, 'Transferencia', 279.66, 14);
+INSERT INTO Compra (id, fecha, confirmacion, medioPago, total, idCliente) VALUES (10, '2025-06-04 00:00:00', 1, 'Transferencia', 364.08, 9);
+INSERT INTO Compra (id, fecha, confirmacion, medioPago, total, idCliente) VALUES (11, '2025-06-05 00:00:00', 1, 'Tarjeta', 410.80, 9);
+INSERT INTO Compra (id, fecha, confirmacion, medioPago, total, idCliente) VALUES (12, '2025-06-06 00:00:00', 1, 'Efectivo', 303.10, 13);
+INSERT INTO Compra (id, fecha, confirmacion, medioPago, total, idCliente) VALUES (13, '2025-06-07 00:00:00', 1, 'Transferencia', 214.80, 9);
+INSERT INTO Compra (id, fecha, confirmacion, medioPago, total, idCliente) VALUES (14, '2025-06-08 00:00:00', 1, 'Transferencia', 418.90, 14);
+INSERT INTO Compra (id, fecha, confirmacion, medioPago, total, idCliente) VALUES (15, '2025-06-09 00:00:00', 1, 'Transferencia', 458.09, 13);
+INSERT INTO Compra (id, fecha, confirmacion, medioPago, total, idCliente) VALUES (16, '2025-06-10 00:00:00', 1, 'Transferencia', 413.20, 16);
+INSERT INTO Compra (id, fecha, confirmacion, medioPago, total, idCliente) VALUES (17, '2025-06-11 00:00:00', 1, 'Tarjeta', 342.75, 8);
+
+-- INSERTS PARA TABLA DETALLECOMPRA
+INSERT INTO DetalleCompra (idCompra, idProducto, cantidad, precioUnitario, subtotal) VALUES (1, 6, 1, 66.65, 66.65);
+INSERT INTO DetalleCompra (idCompra, idProducto, cantidad, precioUnitario, subtotal) VALUES (2, 19, 5, 76.21, 381.05);
+INSERT INTO DetalleCompra (idCompra, idProducto, cantidad, precioUnitario, subtotal) VALUES (3, 49, 1, 67.41, 67.41);
+INSERT INTO DetalleCompra (idCompra, idProducto, cantidad, precioUnitario, subtotal) VALUES (4, 6, 2, 117.21, 234.42);
+INSERT INTO DetalleCompra (idCompra, idProducto, cantidad, precioUnitario, subtotal) VALUES (4, 36, 4, 35.45, 141.80);
+INSERT INTO DetalleCompra (idCompra, idProducto, cantidad, precioUnitario, subtotal) VALUES (5, 2, 3, 82.48, 247.44);
+INSERT INTO DetalleCompra (idCompra, idProducto, cantidad, precioUnitario, subtotal) VALUES (6, 40, 5, 108.95, 544.75);
+INSERT INTO DetalleCompra (idCompra, idProducto, cantidad, precioUnitario, subtotal) VALUES (7, 43, 5, 82.98, 414.90);
+INSERT INTO DetalleCompra (idCompra, idProducto, cantidad, precioUnitario, subtotal) VALUES (7, 46, 5, 101.82, 509.10);
+INSERT INTO DetalleCompra (idCompra, idProducto, cantidad, precioUnitario, subtotal) VALUES (8, 25, 1, 69.33, 69.33);
+INSERT INTO DetalleCompra (idCompra, idProducto, cantidad, precioUnitario, subtotal) VALUES (9, 9, 1, 149.21, 149.21);
+INSERT INTO DetalleCompra (idCompra, idProducto, cantidad, precioUnitario, subtotal) VALUES (9, 49, 1, 29.04, 29.04);
+INSERT INTO DetalleCompra (idCompra, idProducto, cantidad, precioUnitario, subtotal) VALUES (9, 28, 2, 107.44, 214.88);
+INSERT INTO DetalleCompra (idCompra, idProducto, cantidad, precioUnitario, subtotal) VALUES (10, 31, 1, 125.89, 125.89);
+INSERT INTO DetalleCompra (idCompra, idProducto, cantidad, precioUnitario, subtotal) VALUES (10, 15, 5, 59.95, 299.75);
+INSERT INTO DetalleCompra (idCompra, idProducto, cantidad, precioUnitario, subtotal) VALUES (10, 39, 5, 64.60, 323.00);

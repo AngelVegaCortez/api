@@ -1,0 +1,1264 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API Pollería PorSuPollo",
+        "version": "1.0",
+        "description": "Documentación para la API del inventario"
+    },
+    "servers": [
+        {
+            "url": "http://localhost",
+            "description": "Servidor local"
+        }
+    ],
+    "paths": {
+        "/compra.php": {
+            "get": {
+                "summary": "Obtener todas las compras",
+                "tags": ["Compras"],
+                "responses": {
+                    "200": {
+                        "description": "Listado de compras",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "id": { "type": "integer" },
+                                            "fecha": { "type": "string", "format": "date-time" },
+                                            "medioPago": { "type": "string" },
+                                            "total": { "type": "number" },
+                                            "idCliente": { "type": "integer" }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "summary": "Registrar una compra",
+                "tags": ["Compras"],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "required": ["medioPago", "total", "idCliente"],
+                                "properties": {
+                                    "medioPago": { "type": "string", "example": "Tarjeta" },
+                                    "total": { "type": "number", "example": 123.45 },
+                                    "idCliente": { "type": "integer", "example": 1 }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Compra registrada",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "idCompra": { "type": "integer", "example": 1 }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "summary": "Actualizar una compra",
+                "tags": ["Compras"],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "required": ["id", "medioPago", "total", "confirmacion"],
+                                "properties": {
+                                    "id": { "type": "integer", "example": 1 },
+                                    "medioPago": { "type": "string", "example": "Efectivo" },
+                                    "total": { "type": "number", "example": 199.99 },
+                                    "confirmacion": { "type": "boolean", "example": true }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Compra actualizada",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": { "type": "string", "example": "actualizado" }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Eliminar una compra",
+                "tags": ["Compras"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "required": true,
+                        "description": "ID de la compra a eliminar",
+                        "schema": { "type": "integer" }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Compra eliminada",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": { "type": "string", "example": "eliminado" }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/detalleCompra.php": {
+            "get": {
+                "summary": "Obtener todos los detalles de compra",
+                "tags": [
+                    "DetalleCompra"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Listado de detalles de compra",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "idCompra": {
+                                                "type": "integer",
+                                                "example": 42
+                                            },
+                                            "idProducto": {
+                                                "type": "integer",
+                                                "example": 2
+                                            },
+                                            "cantidad": {
+                                                "type": "number",
+                                                "format": "float",
+                                                "example": 5.5
+                                            },
+                                            "precioUnitario": {
+                                                "type": "number",
+                                                "format": "float",
+                                                "example": 20.0
+                                            },
+                                            "subtotal": {
+                                                "type": "number",
+                                                "format": "float",
+                                                "example": 110.0
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "summary": "Agregar detalle de compra",
+                "tags": [
+                    "DetalleCompra"
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "required": [
+                                    "idCompra",
+                                    "idProducto",
+                                    "cantidad",
+                                    "precioUnitario",
+                                    "subtotal"
+                                ],
+                                "properties": {
+                                    "idCompra": {
+                                        "type": "integer",
+                                        "example": 42
+                                    },
+                                    "idProducto": {
+                                        "type": "integer",
+                                        "example": 2
+                                    },
+                                    "cantidad": {
+                                        "type": "number",
+                                        "format": "float",
+                                        "example": 5.5
+                                    },
+                                    "precioUnitario": {
+                                        "type": "number",
+                                        "format": "float",
+                                        "example": 20.0
+                                    },
+                                    "subtotal": {
+                                        "type": "number",
+                                        "format": "float",
+                                        "example": 110.0
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Detalle registrado correctamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "ok"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "summary": "Actualizar un detalle de compra",
+                "tags": [
+                    "DetalleCompra"
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "required": [
+                                    "idCompra",
+                                    "idProducto",
+                                    "cantidad",
+                                    "precioUnitario",
+                                    "subtotal"
+                                ],
+                                "properties": {
+                                    "idCompra": {
+                                        "type": "integer",
+                                        "example": 42
+                                    },
+                                    "idProducto": {
+                                        "type": "integer",
+                                        "example": 2
+                                    },
+                                    "cantidad": {
+                                        "type": "number",
+                                        "format": "float",
+                                        "example": 6.0
+                                    },
+                                    "precioUnitario": {
+                                        "type": "number",
+                                        "format": "float",
+                                        "example": 22.0
+                                    },
+                                    "subtotal": {
+                                        "type": "number",
+                                        "format": "float",
+                                        "example": 132.0
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Detalle actualizado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "actualizado"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Eliminar un detalle de compra",
+                "tags": [
+                    "DetalleCompra"
+                ],
+                "parameters": [
+                    {
+                        "name": "idCompra",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 42
+                        },
+                        "description": "ID de la compra"
+                    },
+                    {
+                        "name": "idProducto",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 2
+                        },
+                        "description": "ID del producto"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Detalle eliminado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "eliminado"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/enviar-correo.php": {
+            "post": {
+                "summary": "Enviar correo electrónico",
+                "description": "Envía un correo electrónico con nombre, correo y mensaje desde el formulario de contacto.",
+                "tags": ["Notificaciones"],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "required": ["nombre", "correo", "mensaje"],
+                                "properties": {
+                                    "nombre": {
+                                        "type": "string",
+                                        "example": "Carlos Torres"
+                                    },
+                                    "correo": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "cliente@correo.com"
+                                    },
+                                    "mensaje": {
+                                        "type": "string",
+                                        "example": "Gracias por el pollo al ajillo"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Correo enviado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "ok"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/inventario_sugerencia.php": {
+            "get": {
+                "summary": "Sugerencias de compra de materia prima",
+                "description": "Calcula qué materias primas necesitan ser reabastecidas según el umbral configurado.",
+                "tags": ["Inventario"],
+                "responses": {
+                    "200": {
+                        "description": "Listado de sugerencias",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "id": {
+                                                "type": "integer",
+                                                "example": 3
+                                            },
+                                            "nombre": {
+                                                "type": "string",
+                                                "example": "Pechuga de pollo"
+                                            },
+                                            "cantidad": {
+                                                "type": "number",
+                                                "example": 5
+                                            },
+                                            "cantidadMaxima": {
+                                                "type": "number",
+                                                "example": 10
+                                            },
+                                            "umbral": {
+                                                "type": "number",
+                                                "example": 3
+                                            },
+                                            "unidadMedida": {
+                                                "type": "string",
+                                                "example": "kg"
+                                            },
+                                            "estado": {
+                                                "type": "string",
+                                                "example": "Crítico"
+                                            },
+                                            "diasRestantes": {
+                                                "type": "number",
+                                                "example": 2.5
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/login.php": {
+            "post": {
+                "summary": "Autenticar usuario",
+                "description": "Verifica el correo y la contraseña para iniciar sesión. Si las credenciales son correctas, inicia sesión y devuelve información del usuario.",
+                "tags": ["Autenticación"],
+                "requestBody": {
+                    "required": true,
+                    "description": "Credenciales de acceso",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "required": ["correo", "contrasena"],
+                                "properties": {
+                                    "correo": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "usuario@correo.com"
+                                    },
+                                    "contrasena": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "secreta123"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Inicio de sesión exitoso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "usuario": {
+                                            "type": "object",
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "nombre": {
+                                                    "type": "string",
+                                                    "example": "Juan Pérez"
+                                                },
+                                                "tipoUsuario": {
+                                                    "type": "string",
+                                                    "example": "Administrador"
+                                                },
+                                                "correo": {
+                                                    "type": "string",
+                                                    "format": "email",
+                                                    "example": "usuario@correo.com"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Credenciales incorrectas",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "mensaje": {
+                                            "type": "string",
+                                            "example": "Correo o contraseña incorrectos."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Faltan datos",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "mensaje": {
+                                            "type": "string",
+                                            "example": "Datos incompletos"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/logout.php": {
+            "post": {
+                "summary": "Cerrar sesión",
+                "description": "Destruye la sesión activa del usuario.",
+                "tags": ["Autenticación"],
+                "responses": {
+                    "200": {
+                        "description": "Sesión cerrada correctamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "cerrado": {
+                                            "type": "boolean",
+                                            "example": true
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/materia_prima.php": {
+            "get": {
+                "summary": "Listar materia prima",
+                "description": "Devuelve un listado de todas las materias primas registradas.",
+                "tags": ["Inventario"],
+                "responses": {
+                    "200": {
+                        "description": "Listado de materias primas",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "idMateriaPrima": {
+                                                "type": "integer",
+                                                "example": 1
+                                            },
+                                            "nombre": {
+                                                "type": "string",
+                                                "example": "Pollo entero"
+                                            },
+                                            "cantidad": {
+                                                "type": "number",
+                                                "example": 20
+                                            },
+                                            "unidadMedida": {
+                                                "type": "string",
+                                                "example": "kg"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "summary": "Registrar nueva materia prima",
+                "tags": ["Inventario"],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "required": ["nombre", "cantidad", "cantidadMax", "umbral", "unidadMedida", "idAdministrador"],
+                                "properties": {
+                                    "nombre": {
+                                        "type": "string",
+                                        "example": "Muslo de pollo"
+                                    },
+                                    "cantidad": {
+                                        "type": "number",
+                                        "example": 10
+                                    },
+                                    "cantidadMax": {
+                                        "type": "number",
+                                        "example": 50
+                                    },
+                                    "umbral": {
+                                        "type": "number",
+                                        "example": 5
+                                    },
+                                    "unidadMedida": {
+                                        "type": "string",
+                                        "example": "kg"
+                                    },
+                                    "idAdministrador": {
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Materia prima registrada",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "example": 99
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "summary": "Actualizar materia prima",
+                "tags": ["Inventario"],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "required": ["id", "nombre", "cantidad", "cantidadMax", "umbral", "unidadMedida", "idAdministrador"],
+                                "properties": {
+                                    "id": { "type": "integer", "example": 99 },
+                                    "nombre": { "type": "string" },
+                                    "cantidad": { "type": "number" },
+                                    "cantidadMax": { "type": "number" },
+                                    "umbral": { "type": "number" },
+                                    "unidadMedida": { "type": "string" },
+                                    "idAdministrador": { "type": "integer" }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Materia prima actualizada",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "actualizado"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Eliminar materia prima",
+                "tags": ["Inventario"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "required": true,
+                        "description": "ID de la materia prima a eliminar",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Materia prima eliminada",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "eliminado"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/obtener_compras.php": {
+            "get": {
+                "summary": "Listar compras",
+                "description": "Devuelve un listado de compras registradas en el sistema.",
+                "tags": ["Compras"],
+                "responses": {
+                    "200": {
+                        "description": "Listado de compras",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "idCompra": {
+                                                "type": "integer",
+                                                "example": 1
+                                            },
+                                            "fecha": {
+                                                "type": "string",
+                                                "format": "date",
+                                                "example": "2025-06-24"
+                                            },
+                                            "total": {
+                                                "type": "number",
+                                                "example": 123.45
+                                            },
+                                            "medioPago": {
+                                                "type": "string",
+                                                "example": "Efectivo"
+                                            },
+                                            "confirmacion": {
+                                                "type": "boolean",
+                                                "example": true
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Usuario no encontrado"
+                    },
+                    "400": {
+                        "description": "Falta cookie"
+                    }
+                }
+            }
+        },
+        "/obtener_usuario.php": {
+            "get": {
+                "summary": "Obtener información del usuario autenticado",
+                "description": "Devuelve los datos del usuario actual en sesión.",
+                "tags": ["Usuarios"],
+                "responses": {
+                    "200": {
+                        "description": "Datos del usuario",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "idUsuario": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "nombre": {
+                                            "type": "string",
+                                            "example": "Juan Pérez"
+                                        },
+                                        "correo": {
+                                            "type": "string",
+                                            "example": "usuario@correo.com"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Usuario no autenticado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Usuario no autenticado"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Falta la cookie idUsuario",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "mensaje": {
+                                            "type": "string",
+                                            "example": "No se encontró la cookie idUsuario"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/producto.php": {
+            "get": {
+                "summary": "Listar productos",
+                "description": "Obtiene productos activos. Si se pasa `accion=promocion` por query, devuelve solo productos en promoción.",
+                "tags": ["Productos"],
+                "parameters": [
+                    {
+                        "name": "accion",
+                        "in": "query",
+                        "required": false,
+                        "description": "Filtrar productos por promociones (valor: 'promocion')",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Lista de productos"
+                    }
+                }
+            },
+            "post": {
+                "summary": "Crear nuevo producto",
+                "description": "Registra un nuevo producto en el sistema.",
+                "tags": ["Productos"],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "required": ["nombre", "descripcion", "stock", "precio", "descuento", "categoria", "idAdministrador"],
+                                "properties": {
+                                    "nombre": { "type": "string" },
+                                    "descripcion": { "type": "string" },
+                                    "stock": { "type": "integer" },
+                                    "precio": { "type": "number", "format": "float" },
+                                    "descuento": { "type": "number", "format": "float" },
+                                    "categoria": { "type": "string" },
+                                    "idAdministrador": { "type": "integer" }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Producto creado exitosamente con ID"
+                    }
+                }
+            },
+            "put": {
+                "summary": "Actualizar producto",
+                "description": "Actualiza un producto existente si está activo.",
+                "tags": ["Productos"],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "required": ["id", "nombre", "descripcion", "stock", "precio", "descuento", "categoria", "idAdministrador"],
+                                "properties": {
+                                    "id": { "type": "integer" },
+                                    "nombre": { "type": "string" },
+                                    "descripcion": { "type": "string" },
+                                    "stock": { "type": "integer" },
+                                    "precio": { "type": "number", "format": "float" },
+                                    "descuento": { "type": "number", "format": "float" },
+                                    "categoria": { "type": "string" },
+                                    "idAdministrador": { "type": "integer" }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Producto actualizado correctamente"
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Desactivar producto",
+                "description": "Desactiva un producto mediante su ID (soft delete).",
+                "tags": ["Productos"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "required": true,
+                        "description": "ID del producto a desactivar",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Producto desactivado correctamente"
+                    }
+                }
+            }
+        },
+        "/update_usuario.php": {
+            "post": {
+                "summary": "Actualizar datos del usuario autenticado",
+                "description": "Permite al usuario autenticado (usando cookie `id`) actualizar su nombre, apellidos, dirección y nombre de usuario.",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "required": ["nombre", "apellidoPaterno", "apellidoMaterno", "direccion", "nombreUsuario"],
+                                "properties": {
+                                    "nombre": {
+                                        "type": "string"
+                                    },
+                                    "apellidoPaterno": {
+                                        "type": "string"
+                                    },
+                                    "apellidoMaterno": {
+                                        "type": "string"
+                                    },
+                                    "direccion": {
+                                        "type": "string"
+                                    },
+                                    "nombreUsuario": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Usuario actualizado correctamente"
+                    },
+                    "400": {
+                        "description": "Faltan datos o cookie no encontrada"
+                    },
+                    "500": {
+                        "description": "Error interno al actualizar"
+                    }
+                }
+            }
+        },
+        "/usuario.php": {
+            "get": {
+                "summary": "Obtener lista de usuarios",
+                "tags": ["Usuario"],
+                "responses": {
+                    "200": {
+                        "description": "Lista de usuarios activos",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "id": { "type": "integer", "example": 1 },
+                                            "nombre": { "type": "string", "example": "Juan" },
+                                            "apellidoPaterno": { "type": "string", "example": "Pérez" },
+                                            "apellidoMaterno": { "type": "string", "example": "López" },
+                                            "correo": { "type": "string", "example": "juan@ejemplo.com" },
+                                            "tipoUsuario": { "type": "string", "example": "Cliente" },
+                                            "nombreUsuario": { "type": "string", "example": "juanito" },
+                                            "estatus": { "type": "boolean", "example": true }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "summary": "Registrar nuevo usuario",
+                "tags": ["Usuario"],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "required": ["nombre", "apellidoPaterno", "correo", "contrasena", "tipoUsuario", "nombreUsuario"],
+                                "properties": {
+                                    "nombre": { "type": "string", "example": "Juan" },
+                                    "apellidoPaterno": { "type": "string", "example": "Pérez" },
+                                    "apellidoMaterno": { "type": "string", "example": "López" },
+                                    "correo": { "type": "string", "format": "email", "example": "juan@ejemplo.com" },
+                                    "contrasena": { "type": "string", "format": "password", "example": "123456" },
+                                    "tipoUsuario": { "type": "string", "enum": ["Cliente", "Administrador"] },
+                                    "nombreUsuario": { "type": "string", "example": "juanito" },
+                                    "foto": { "type": "string", "format": "binary" }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Usuario registrado exitosamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": { "type": "integer", "example": 99 }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "summary": "Actualizar usuario existente",
+                "tags": ["Usuario"],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "required": ["id", "nombre", "apellidoPaterno", "correo", "contrasena", "tipoUsuario", "nombreUsuario"],
+                                "properties": {
+                                    "id": { "type": "integer", "example": 1 },
+                                    "nombre": { "type": "string", "example": "Juan" },
+                                    "apellidoPaterno": { "type": "string", "example": "Pérez" },
+                                    "apellidoMaterno": { "type": "string", "example": "López" },
+                                    "correo": { "type": "string", "format": "email", "example": "juan@ejemplo.com" },
+                                    "contrasena": { "type": "string", "format": "password", "example": "123456" },
+                                    "tipoUsuario": { "type": "string", "enum": ["Cliente", "Administrador"] },
+                                    "nombreUsuario": { "type": "string", "example": "juanito" }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Usuario actualizado exitosamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": { "type": "string", "example": "actualizado" }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Eliminar (baja lógica) usuario",
+                "tags": ["Usuario"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "required": true,
+                        "description": "ID del usuario a desactivar",
+                        "schema": { "type": "integer", "example": 1 }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Usuario desactivado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": { "type": "string", "example": "desactivado" }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/verifica_admin.php": {
+            "get": {
+                "summary": "Verificar si el usuario es administrador",
+                "description": "Verifica mediante la cookie 'id' si el usuario autenticado tiene rol de administrador.",
+                "responses": {
+                    "200": {
+                        "description": "Resultado de la verificación",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "admin": {
+                                            "type": "boolean"
+                                        },
+                                        "error": {
+                                            "type": "string",
+                                            "nullable": true
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/verificar_sesion.php": {
+            "get": {
+                "summary": "Verificar si hay sesión iniciada",
+                "description": "Devuelve si el usuario tiene una sesión activa mediante `$_SESSION['usuario']`.",
+                "responses": {
+                    "200": {
+                        "description": "Sesión activa",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "autenticado": {
+                                            "type": "boolean"
+                                        },
+                                        "id": {
+                                            "type": "integer",
+                                            "nullable": true
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Sesión no activa",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "autenticado": {
+                                            "type": "boolean"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

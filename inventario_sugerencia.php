@@ -1,4 +1,45 @@
 <?php
+use OpenApi\Annotations as OA;
+
+/**
+ * @OA\OpenApi(
+ *     @OA\Info(
+ *         title="API Pollería PorSuPollo",
+ *         version="1.0",
+ *         description="Documentación para la API del inventario"
+ *     ),
+ *     @OA\Server(
+ *         url="http://localhost",
+ *         description="Servidor local"
+ *     ),
+ *     @OA\PathItem(
+ *         path="/inventario_sugerencia.php",
+ *         @OA\Get(
+ *             summary="Sugerencias de compra de materia prima",
+ *             description="Calcula qué materias primas necesitan ser reabastecidas según el umbral configurado.",
+ *             tags={"Inventario"},
+ *             @OA\Response(
+ *                 response=200,
+ *                 description="Listado de sugerencias",
+ *                 @OA\JsonContent(
+ *                     type="array",
+ *                     @OA\Items(
+ *                         @OA\Property(property="id", type="integer", example=3),
+ *                         @OA\Property(property="nombre", type="string", example="Pechuga de pollo"),
+ *                         @OA\Property(property="cantidad", type="number", example=5),
+ *                         @OA\Property(property="cantidadMaxima", type="number", example=10),
+ *                         @OA\Property(property="umbral", type="number", example=3),
+ *                         @OA\Property(property="unidadMedida", type="string", example="kg"),
+ *                         @OA\Property(property="estado", type="string", example="Crítico"),
+ *                         @OA\Property(property="diasRestantes", type="number", example=2.5)
+ *                     )
+ *                 )
+ *             )
+ *         )
+ *     )
+ * )
+ */
+
 ob_clean();
 require_once 'database.php'; // esto carga $pdo
 

@@ -1,4 +1,36 @@
 ﻿<?php
+use OpenApi\Annotations as OA;
+
+/**
+ * @OA\OpenApi(
+ *     @OA\Info(
+ *         title="API Pollería PorSuPollo",
+ *         version="1.0",
+ *         description="Documentación para la API del inventario"
+ *     ),
+ *     @OA\Server(
+ *         url="http://localhost",
+ *         description="Servidor local"
+ *     ),
+ *     @OA\PathItem(
+ *         path="/verifica_admin.php",
+ *         @OA\Get(
+ *             summary="Verificar si el usuario es administrador",
+ *             description="Verifica mediante la cookie 'id' si el usuario autenticado tiene rol de administrador.",
+ *             @OA\Response(
+ *                 response=200,
+ *                 description="Resultado de la verificación",
+ *                 @OA\JsonContent(
+ *                     @OA\Property(property="admin", type="boolean"),
+ *                     @OA\Property(property="error", type="string", nullable=true)
+ *                 )
+ *             )
+ *         )
+ *     )
+ * )
+ */
+
+
 header('Access-Control-Allow-Origin: http://localhost:4200');
 header('Access-Control-Allow-Credentials: true');
 header('Access-Control-Allow-Methods: GET, OPTIONS');
@@ -29,3 +61,4 @@ if (isset($_COOKIE['id'])) {
 } else {
     echo json_encode(['admin' => false, 'error' => 'No se encontró la cookie id']);
 }
+?>

@@ -1,0 +1,10 @@
+{
+    "name": "itsan/api",
+    "description": "Documentación súper profesional de la pollería porsupollo.",
+    "type": "project",
+    "require": {
+        "zircote/swagger-php": "^5.1"
+    },
+    "license": "MIT",
+    "minimum-stability": "stable"
+}
