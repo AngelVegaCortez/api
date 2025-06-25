@@ -115,13 +115,15 @@ switch ($_SERVER['REQUEST_METHOD']) {
 
     case 'POST':
         $data = json_decode(file_get_contents("php://input"), true);
-        $stmt = $pdo->prepare("INSERT INTO MateriaPrima (nombre, cantidad, cantidadMax, umbral, unidadMedida, idAdministrador) VALUES (?, ?, ?, ?, ?, ?)");
+        $stmt = $pdo->prepare("INSERT INTO MateriaPrima (nombre, precio, cantidad, cantidadMax, umbral, unidadMedida, consumoPromedioDiario, idAdministrador) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
         $stmt->execute([
             $data['nombre'],
+            $data['precio'],
             $data['cantidad'],
             $data['cantidadMax'],
             $data['umbral'],
             $data['unidadMedida'],
+            $data['consumoPromedioDiario'],
             $data['idAdministrador']
         ]);
         echo json_encode(['id' => $pdo->lastInsertId()]);

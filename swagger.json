@@ -656,11 +656,15 @@
                         "application/json": {
                             "schema": {
                                 "type": "object",
-                                "required": ["nombre", "cantidad", "cantidadMax", "umbral", "unidadMedida", "idAdministrador"],
+                                "required": ["nombre", "precio", "cantidad", "cantidadMax", "umbral", "unidadMedida", "consumoPromedioDiario", "idAdministrador"],
                                 "properties": {
                                     "nombre": {
                                         "type": "string",
                                         "example": "Muslo de pollo"
+                                    },
+                                    "precio": {
+                                        "type": "number",
+                                        "example": 20
                                     },
                                     "cantidad": {
                                         "type": "number",
@@ -677,6 +681,10 @@
                                     "unidadMedida": {
                                         "type": "string",
                                         "example": "kg"
+                                    },
+                                    "consumoPromedioDiario": {
+                                        "type": "number",
+                                        "example": 10
                                     },
                                     "idAdministrador": {
                                         "type": "integer",
